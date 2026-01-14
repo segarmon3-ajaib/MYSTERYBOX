@@ -1,262 +1,201 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mystery Box AJAIB4D</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Animasi teks marquee */
-    @keyframes marquee {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
-    .animate-marquee {
-      display: inline-block;
-      animation: marquee 40s linear infinite;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mystery Box AJAIB4D</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  /* Marquee teks */
+  @keyframes marquee {0%{transform:translateX(100%);}100%{transform:translateX(-100%);}}
+  .animate-marquee{display:inline-block;animation:marquee 40s linear infinite;}
 
-    /* Animasi float kecil untuk elemen lain */
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-30px) rotate(180deg); }
-    }
-    .animate-float { animation: float 8s ease-in-out infinite; }
+  /* Float kecil */
+  @keyframes float {0%,100%{transform:translateY(0px) rotate(0deg);}50%{transform:translateY(-30px) rotate(180deg);}}
+  .animate-float{animation:float 8s ease-in-out infinite;}
 
-    /* Glow untuk box */
-    @keyframes glow {
-      0%, 100% { box-shadow: 0 0 30px rgba(234,179,8,0.6), 0 0 60px rgba(234,179,8,0.3); }
-      50% { box-shadow: 0 0 50px rgba(234,179,8,0.8), 0 0 100px rgba(234,179,8,0.5); }
-    }
-    .animate-glow { animation: glow 2s ease-in-out infinite; }
+  /* Glow untuk box */
+  @keyframes glow {0%,100%{box-shadow:0 0 30px rgba(234,179,8,0.6),0 0 60px rgba(234,179,8,0.3);}50%{box-shadow:0 0 50px rgba(234,179,8,0.8),0 0 100px rgba(234,179,8,0.5);}}
+  .animate-glow{animation:glow 2s ease-in-out infinite;}
 
-    @keyframes pulse-gold {
-      0%,100%{transform:scale(1);}
-      50%{transform:scale(1.05);}
-    }
-    .animate-pulse-gold { animation: pulse-gold 2s ease-in-out infinite; }
+  @keyframes pulse-gold{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
+  .animate-pulse-gold{animation:pulse-gold 2s ease-in-out infinite;}
 
-    @keyframes bounce-chat {
-      0%,100%{transform:translateY(0);}
-      50%{transform:translateY(-10px);}
-    }
-    .animate-bounce-chat { animation: bounce-chat 2s ease-in-out infinite; }
+  @keyframes bounce-chat{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+  .animate-bounce-chat{animation:bounce-chat 2s ease-in-out infinite;}
 
-    /* Nailong background */
-    #nailong-bg {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 0;
-    }
-    #nailong-bg img {
-      position: absolute;
-      pointer-events: none;
-      transition: transform 0.1s linear;
-    }
-  </style>
+  /* Nailong background */
+  #naga-kuning-bg{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
+  #naga-kuning-bg img{position:absolute;pointer-events:none;transition:transform 0.1s linear;}
+</style>
 </head>
 <body class="bg-gradient-to-br from-black via-gray-900 to-black min-h-screen overflow-x-hidden relative">
 
-  <!-- Background Nailong -->
-  <div id="nailong-bg"></div>
+<!-- Background Nailong -->
+<div id="naga-kuning-bg"></div>
 
-  <!-- Running Text -->
-  <div class="fixed top-0 left-0 right-0 bg-gradient-to-r from-red-600 via-red-500 to-red-600 text-black py-3 overflow-hidden shadow-2xl z-10 border-b-4 border-red-400">
-    <div class="animate-marquee whitespace-nowrap">
-      <span id="winnerText" class="text-sm md:text-base font-bold"></span>
+<!-- Running Text -->
+<div class="fixed top-0 left-0 right-0 bg-gradient-to-r from-red-600 via-red-500 to-red-600 text-black py-3 overflow-hidden shadow-2xl z-10 border-b-4 border-red-400">
+  <div class="animate-marquee whitespace-nowrap">
+    <span id="winnerText" class="text-sm md:text-base font-bold"></span>
+  </div>
+</div>
+
+<!-- Buttons -->
+<button id="soundToggle" class="fixed top-20 right-4 bg-gradient-to-r from-red-600 to-red-500 p-3 rounded-full shadow-lg z-10 border-2 border-red-400"><span id="soundIcon">🔊</span></button>
+<button id="liveChatBtn" class="fixed bottom-6 right-6 bg-gradient-to-r from-red-600 to-red-500 text-black py-3 px-5 rounded-full shadow-2xl z-20 animate-bounce-chat border-2 border-red-400"><div class="flex flex-col items-center gap-1"><span class="text-2xl">💬</span><span class="text-xs whitespace-nowrap">LIVE CHAT 24/7</span></div></button>
+<button id="whatsappBtn" class="fixed bottom-6 left-6 bg-gradient-to-r from-green-600 to-green-500 text-white py-3 px-5 rounded-full shadow-2xl z-20 animate-bounce-chat border-2 border-green-400"><div class="flex flex-col items-center gap-1"><span class="text-2xl">💬</span><span class="text-xs whitespace-nowrap">WHATSAPP</span></div></button>
+
+<!-- Main Container -->
+<div id="app" class="min-h-screen flex items-center justify-center p-4 pt-20 relative z-10"></div>
+
+<!-- Prize Modal -->
+<div id="prizeModal" class="hidden fixed inset-0 bg-black bg-opacity-80 z-50 overflow-y-auto">
+  <div class="min-h-screen flex items-center justify-center p-4 py-8">
+    <div class="bg-gradient-to-br from-gray-800 to-black rounded-3xl p-6 md:p-8 max-w-2xl w-full border-4 border-red-500 shadow-2xl">
+      <div class="text-center mb-6">
+        <h2 class="text-2xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-300 mb-2">🎁 DAFTAR HADIAH 🎁</h2>
+        <p class="text-gray-300 text-sm">Hadiah Menarik Menanti Anda!</p>
+      </div>
+      <div id="prizeList" class="space-y-4 mb-6"></div>
+      <button id="closePrizeModal" class="w-full bg-gradient-to-r from-red-600 to-red-500 text-white py-4 rounded-xl text-xl shadow-lg border-2 border-red-400">❌ Tutup</button>
     </div>
   </div>
+</div>
 
-  <!-- Sound Toggle -->
-  <button id="soundToggle" class="fixed top-20 right-4 bg-gradient-to-r from-red-600 to-red-500 p-3 rounded-full hover:from-red-500 hover:to-red-400 transition shadow-lg z-10 border-2 border-red-400">
-    <span id="soundIcon">🔊</span>
-  </button>
+<script>
+/******** KONFIGURASI ********/
+const WHATSAPP_NUMBER='6287784195051';
+const prizes=[
+  {name:'Saldo 100rb',value:'Rp 100.000',icon:'💵'},
+  {name:'Saldo 150rb',value:'Rp 150.000',icon:'💵'},
+  {name:'Saldo 200rb',value:'Rp 200.000',icon:'💵'},
+  {name:'Saldo 500rb',value:'Rp 500.000',icon:'💵'},
+  {name:'Emas Batang 3gr',value:'Emas 3 Gram',icon:'🧈'},
+  {name:'iPhone 17 Pro Max',value:'iPhone 17 Pro Max',icon:'📲'},
+  {name:'Motor Yamaha Nmax',value:'Motor Yamaha Nmax',icon:'🏍️'},
+  {name:'Bonus Deposit 10%',value:'Bonus Deposit 10%',icon:'🔟%'}
+];
 
-  <!-- Live Chat Button -->
-  <button id="liveChatBtn" class="fixed bottom-6 right-6 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-black font-bold py-3 px-5 rounded-full shadow-2xl z-20 transition transform hover:scale-110 animate-bounce-chat border-2 border-red-400">
-    <div class="flex flex-col items-center gap-1">
-      <span class="text-2xl">💬</span>
-      <span class="text-xs whitespace-nowrap">LIVE CHAT 24/7</span>
-    </div>
-  </button>
+let stage='welcome',userId='',claimedUsers=[],soundEnabled=true;
 
-  <!-- WhatsApp Button -->
-  <button id="whatsappBtn" class="fixed bottom-6 left-6 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white font-bold py-3 px-5 rounded-full shadow-2xl z-20 transition transform hover:scale-110 animate-bounce-chat border-2 border-green-400">
-    <div class="flex flex-col items-center gap-1">
-      <span class="text-2xl">💬</span>
-      <span class="text-xs whitespace-nowrap">WHATSAPP</span>
-    </div>
-  </button>
+/******** NAILONG BACKGROUND ********/
+const nailongContainer=document.getElementById('naga-kuning-bg');
+const nailongImgUrl='https://raw.githubusercontent.com/AJAIB/example/main/nailong-kuning.png'; // URL gambar bayi naga kuning
+const nailongCount=30;
+const nailongs=[];
 
-  <!-- Main Container -->
-  <div id="app" class="min-h-screen flex items-center justify-center p-4 pt-20 relative z-10"></div>
+for(let i=0;i<nailongCount;i++){
+  const img=document.createElement('img');
+  img.src=nailongImgUrl;
+  img.x=Math.random()*window.innerWidth;
+  img.y=Math.random()*window.innerHeight;
+  img.vx=(Math.random()-0.5)*1.5;
+  img.vy=(Math.random()-0.5)*1.5;
+  img.style.width=(30+Math.random()*30)+'px';
+  img.style.opacity=0.5+Math.random()*0.5;
+  nailongContainer.appendChild(img);
+  nailongs.push(img);
+}
 
-  <!-- Prize List Modal -->
-  <div id="prizeModal" class="hidden fixed inset-0 bg-black bg-opacity-80 z-50 overflow-y-auto">
-    <div class="min-h-screen flex items-center justify-center p-4 py-8">
-      <div class="bg-gradient-to-br from-gray-800 to-black rounded-3xl p-6 md:p-8 max-w-2xl w-full border-4 border-red-500 shadow-2xl">
-        <div class="text-center mb-6">
-          <h2 class="text-2xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-300 mb-2">
-            🎁 DAFTAR HADIAH 🎁
-          </h2>
-          <p class="text-gray-300 text-sm">Hadiah Menarik Menanti Anda!</p>
+let mouse={x:window.innerWidth/2,y:window.innerHeight/2};
+window.addEventListener('mousemove',e=>{mouse.x=e.clientX; mouse.y=e.clientY;});
+
+function animateNailongs(){
+  for(const img of nailongs){
+    img.x+=img.vx; img.y+=img.vy;
+    if(img.x>window.innerWidth) img.x=-50;
+    if(img.x<-50) img.x=window.innerWidth;
+    if(img.y>window.innerHeight) img.y=-50;
+    if(img.y<-50) img.y=window.innerHeight;
+
+    const dx=mouse.x-img.x,dy=mouse.y-img.y,dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<100){img.x+=dx*0.02; img.y+=dy*0.02;}
+
+    img.style.transform=`translate(${img.x}px,${img.y}px)`;
+  }
+  requestAnimationFrame(animateNailongs);
+}
+animateNailongs();
+
+/******** WINNER TEXT ********/
+function generateUsername(){
+  const prefixes=['user_','member_','player_','lucky_','winner_','pro_','vip_','king_','ace_','star_'];
+  const prefix=prefixes[Math.floor(Math.random()*prefixes.length)];
+  const lastTwo=Math.floor(Math.random()*100).toString().padStart(2,'0');
+  return `${prefix}***${lastTwo}`;
+}
+
+function updateWinnerText(){
+  let text=''; const emojis=['🎊','🎉','✨','⭐','👑','🚀'];
+  for(let i=0;i<8;i++){
+    const randomUser=generateUsername();
+    const randomPrize=prizes[Math.floor(Math.random()*prizes.length)];
+    const emoji=emojis[Math.floor(Math.random()*emojis.length)];
+    text+=`${emoji} Selamat kepada ${randomUser} mendapatkan ${randomPrize.value}! `;
+  }
+  document.getElementById('winnerText').textContent=text;
+}
+updateWinnerText();
+setInterval(updateWinnerText,12000);
+
+/******** RENDER WELCOME STAGE ********/
+function render(){
+  const app=document.getElementById('app');
+  if(stage==='welcome'){
+    app.innerHTML=`
+      <div class="text-center relative z-10">
+        <div class="mb-8 bg-gradient-to-br from-gray-800 to-black rounded-3xl p-8 shadow-2xl animate-glow border-4 border-red-500">
+          <div class="text-6xl md:text-8xl font-bold"><span class="text-red-500">AJAIB</span><span class="text-white">4D</span></div>
         </div>
-        <div id="prizeList" class="space-y-4 mb-6"></div>
-        <button id="closePrizeModal" class="w-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white font-bold py-4 rounded-xl text-xl shadow-lg transform hover:scale-105 transition border-2 border-red-400">
-          ❌ Tutup
-        </button>
+        <div class="mb-6"><span class="text-8xl animate-pulse-gold">🎁</span></div>
+        <h1 class="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-red-300 to-red-500 mb-3">MYSTERY BOX</h1>
+        <div class="flex items-center justify-center gap-3 mb-8">
+          <div class="h-1 w-20 bg-gradient-to-r from-transparent to-red-500"></div>
+          <span class="text-red-500">✨</span>
+          <div class="h-1 w-20 bg-gradient-to-l from-transparent to-red-500"></div>
+        </div>
+        <div class="bg-gradient-to-br from-gray-800 to-black rounded-2xl p-6 mb-8 max-w-lg mx-auto border-2 border-red-500 shadow-2xl">
+          <p class="text-white text-lg md:text-xl font-medium leading-relaxed">
+            🎁 Selamat Datang di Mystery Box 🎁<br/>
+            <span class="text-red-400">Tekan SPIN & Masukkan User ID</span><br/>
+            <span class="text-sm text-gray-300">Menangkan Hadiah Fantastis!</span>
+          </p>
+        </div>
+        <button id="showPrizesBtn" class="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold py-4 px-12 rounded-full text-lg shadow-2xl transform hover:scale-105 transition mb-6 border-2 border-blue-400">🎁 Tampilkan Hadiah</button>
+        <br/>
+        <button id="startBtn" class="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-black font-bold py-5 px-16 rounded-full text-2xl shadow-2xl transform hover:scale-110 transition animate-pulse-gold border-4 border-red-400">╰┈➤ SPIN DISINI ˃ᴗ˂</button>
+      </div>
+    `;
+    document.getElementById('startBtn').onclick=()=>{stage='input'; render();};
+    document.getElementById('showPrizesBtn').onclick=showPrizeModal;
+  }
+}
+render();
+
+/******** MODAL HADIAH ********/
+function showPrizeModal(){
+  const modal=document.getElementById('prizeModal');
+  const prizeList=document.getElementById('prizeList');
+  prizeList.innerHTML=prizes.map(prize=>`
+    <div class="bg-gradient-to-br from-red-600 to-red-500 rounded-2xl p-6 border-4 border-red-400 shadow-xl transform hover:scale-102 transition duration-300">
+      <div class="text-center">
+        <div class="text-6xl mb-3">${prize.icon}</div>
+        <h3 class="text-xl font-bold text-black mb-2">${prize.name}</h3>
+        <div class="bg-black bg-opacity-30 rounded-lg py-2 px-4">
+          <p class="text-2xl font-bold text-white">${prize.value}</p>
+        </div>
       </div>
     </div>
-  </div>
+  `).join('');
+  modal.classList.remove('hidden');
+}
+document.getElementById('closePrizeModal').onclick=()=>{document.getElementById('prizeModal').classList.add('hidden');};
 
-  <script>
-    /********** KONFIGURASI **********/
-    const WHATSAPP_NUMBER = '6287784195051';
-    const prizes = [
-      { name: 'Saldo 100rb', value: 'Rp 100.000', icon: '💵' },
-      { name: 'Saldo 150rb', value: 'Rp 150.000', icon: '💵' },
-      { name: 'Saldo 200rb', value: 'Rp 200.000', icon: '💵' },
-      { name: 'Saldo 500rb', value: 'Rp 500.000', icon: '💵' },
-      { name: 'Emas Batang 3gr', value: 'Emas 3 Gram', icon: '🧈' },
-      { name: 'iPhone 17 Pro Max', value: 'iPhone 17 Pro Max', icon: '📲' },
-      { name: 'Motor Yamaha Nmax', value: 'Motor Yamaha Nmax', icon: '🏍️' },
-      { name: 'Bonus Deposit 10%', value: 'Bonus Deposit 10%', icon: '🔟%' }
-    ];
-
-    let stage = 'welcome';
-    let userId = '';
-    let claimedUsers = [];
-    let soundEnabled = true;
-
-    /********** NAILONG BACKGROUND **********/
-    const nailongContainer = document.getElementById('nailong-bg');
-    const nailongImgUrl = 'URL_GAMBAR_NAILONG_KUNING.png'; // ganti dengan URL gambar bayi naga kuning
-    const nailongCount = 30;
-    const nailongs = [];
-
-    for(let i=0;i<nailongCount;i++){
-      const img = document.createElement('img');
-      img.src = nailongImgUrl;
-      img.x = Math.random()*window.innerWidth;
-      img.y = Math.random()*window.innerHeight;
-      img.vx = (Math.random()-0.5)*1.5;
-      img.vy = (Math.random()-0.5)*1.5;
-      img.style.width = (30+Math.random()*30)+'px';
-      img.style.opacity = 0.5+Math.random()*0.5;
-      nailongContainer.appendChild(img);
-      nailongs.push(img);
-    }
-
-    let mouse = {x: window.innerWidth/2, y: window.innerHeight/2};
-    window.addEventListener('mousemove',(e)=>{mouse.x=e.clientX; mouse.y=e.clientY;});
-
-    function animateNailongs(){
-      for(const img of nailongs){
-        img.x += img.vx; img.y += img.vy;
-        if(img.x>window.innerWidth) img.x=-50;
-        if(img.x<-50) img.x=window.innerWidth;
-        if(img.y>window.innerHeight) img.y=-50;
-        if(img.y<-50) img.y=window.innerHeight;
-
-        const dx = mouse.x-img.x;
-        const dy = mouse.y-img.y;
-        const dist = Math.sqrt(dx*dx+dy*dy);
-        if(dist<100){img.x+=dx*0.02; img.y+=dy*0.02;}
-
-        img.style.transform = `translate(${img.x}px,${img.y}px)`;
-      }
-      requestAnimationFrame(animateNailongs);
-    }
-    animateNailongs();
-
-    /********** WINNER TEXT **********/
-    function generateUsername(){
-      const prefixes=['user_','member_','player_','lucky_','winner_','pro_','vip_','king_','ace_','star_'];
-      const prefix = prefixes[Math.floor(Math.random()*prefixes.length)];
-      const lastTwo = Math.floor(Math.random()*100).toString().padStart(2,'0');
-      return `${prefix}***${lastTwo}`;
-    }
-
-    function updateWinnerText(){
-      let text='';
-      const emojis=['🎊','🎉','✨','⭐','👑','🚀'];
-      for(let i=0;i<8;i++){
-        const randomUser = generateUsername();
-        const randomPrize = prizes[Math.floor(Math.random()*prizes.length)];
-        const emoji = emojis[Math.floor(Math.random()*emojis.length)];
-        text += `${emoji} Selamat kepada ${randomUser} mendapatkan ${randomPrize.value}! `;
-      }
-      document.getElementById('winnerText').textContent=text;
-    }
-    updateWinnerText();
-    setInterval(updateWinnerText,12000);
-
-    /********** RENDER STAGE (WELCOME / INPUT / SELECT / RESULT) **********/
-    function render(){
-      const app = document.getElementById('app');
-      if(stage==='welcome'){
-        app.innerHTML=`
-          <div class="text-center relative z-10">
-            <div class="mb-8 bg-gradient-to-br from-gray-800 to-black rounded-3xl p-8 shadow-2xl animate-glow border-4 border-red-500">
-              <div class="text-6xl md:text-8xl font-bold">
-                <span class="text-red-500">AJAIB</span><span class="text-white">4D</span>
-              </div>
-            </div>
-            <div class="mb-6"><span class="text-8xl animate-pulse-gold">🎁</span></div>
-            <h1 class="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-red-300 to-red-500 mb-3">MYSTERY BOX</h1>
-            <div class="flex items-center justify-center gap-3 mb-8">
-              <div class="h-1 w-20 bg-gradient-to-r from-transparent to-red-500"></div>
-              <span class="text-red-500">✨</span>
-              <div class="h-1 w-20 bg-gradient-to-l from-transparent to-red-500"></div>
-            </div>
-            <div class="bg-gradient-to-br from-gray-800 to-black rounded-2xl p-6 mb-8 max-w-lg mx-auto border-2 border-red-500 shadow-2xl">
-              <p class="text-white text-lg md:text-xl font-medium leading-relaxed">
-                🎁 Selamat Datang di Mystery Box 🎁<br/>
-                <span class="text-red-400">Tekan SPIN & Masukkan User ID</span><br/>
-                <span class="text-sm text-gray-300">Menangkan Hadiah Fantastis!</span>
-              </p>
-            </div>
-            <button id="showPrizesBtn" class="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold py-4 px-12 rounded-full text-lg shadow-2xl transform hover:scale-105 transition mb-6 border-2 border-blue-400">🎁 Tampilkan Hadiah</button>
-            <br/>
-            <button id="startBtn" class="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-black font-bold py-5 px-16 rounded-full text-2xl shadow-2xl transform hover:scale-110 transition animate-pulse-gold border-4 border-red-400">╰┈➤ SPIN DISINI ˃ᴗ˂</button>
-          </div>
-        `;
-        document.getElementById('startBtn').onclick=()=>{stage='input'; render();};
-        document.getElementById('showPrizesBtn').onclick=showPrizeModal;
-      }
-      // Stage input, select, result bisa diintegrasikan sama cara lama
-      // ... (script renderInput, renderBoxSelection, renderResult tetap sama)
-    }
-    render();
-
-    /********** MODAL HADIAH **********/
-    function showPrizeModal(){
-      const modal=document.getElementById('prizeModal');
-      const prizeList=document.getElementById('prizeList');
-      prizeList.innerHTML=prizes.map(prize=>`
-        <div class="bg-gradient-to-br from-red-600 to-red-500 rounded-2xl p-6 border-4 border-red-400 shadow-xl transform hover:scale-102 transition duration-300">
-          <div class="text-center">
-            <div class="text-6xl mb-3">${prize.icon}</div>
-            <h3 class="text-xl font-bold text-black mb-2">${prize.name}</h3>
-            <div class="bg-black bg-opacity-30 rounded-lg py-2 px-4">
-              <p class="text-2xl font-bold text-white">${prize.value}</p>
-            </div>
-          </div>
-        </div>
-      `).join('');
-      modal.classList.remove('hidden');
-    }
-    document.getElementById('closePrizeModal').onclick=()=>{document.getElementById('prizeModal').classList.add('hidden');};
-
-    /********** BUTTONS WHATSAPP & CHAT **********/
-    document.getElementById('soundToggle').onclick=()=>{
-      soundEnabled=!soundEnabled;
-      document.getElementById('soundIcon').textContent=soundEnabled?'🔊':'🔇';
-    };
-    document.getElementById('liveChatBtn').onclick=()=>{window.open('https://static.zdassets.com/web_widget/latest/liveChat.html');};
-    document.getElementById('whatsappBtn').onclick=()=>{window.open(`https://wa.me/${WHATSAPP_NUMBER}`,'_blank');};
-  </script>
+/******** BUTTONS ********/
+document.getElementById('soundToggle').onclick=()=>{soundEnabled=!soundEnabled; document.getElementById('soundIcon').textContent=soundEnabled?'🔊':'🔇';};
+document.getElementById('liveChatBtn').onclick=()=>{window.open('https://static.zdassets.com/web_widget/latest/liveChat.html');};
+document.getElementById('whatsappBtn').onclick=()=>{window.open(`https://wa.me/${WHATSAPP_NUMBER}`,'_blank');};
+</script>
 </body>
 </html>
